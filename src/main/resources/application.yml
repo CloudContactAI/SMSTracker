@@ -1,0 +1,56 @@
+cloudcontactai:
+  queue:
+    updateSmsStatus: ${UPDATE_SMS_STATUS_QUEUE}
+  cors:
+    allowed: ${CORS_ALLOWED_HOSTS}
+logging:
+  level:
+    ROOT: ${LOG_LEVEL}
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+      maximum-pool-size: ${DB_POOL_SIZE:3}
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+      open-in-view: false
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      properties:
+        hibernate.jdbc.time_zone: UTC
+        hibernate.id.new_generator_mappings: true
+        hibernate.connection.provider_disables_autocommit: true
+        hibernate.cache.use_second_level_cache: false
+        hibernate.cache.use_query_cache: false
+        hibernate.generate_statistics: true
+        hibernate.show_sql: true
+        hibernate.format_sql: true
+        hibernate.globally_quoted_identifiers: true
+        hibernate.jdbc.lob.non_contextual_creation: true
+  activemq:
+    broker-url: ${ACTIVE_MQ_BROKER_URL}
+    user: ${ACTIVE_MQ_BROKER_USER}
+    password: ${ACTIVE_MQ_BROKER_PASSWORD}
+server:
+  port: ${SERVER_PORT:8080}
+  async:
+    core-pool-size: ${ASYNC_POOL_SIZE:2}
+    max-pool-size: ${ASYNC_POOL_MAX_SIZE:50}
+    queue-capacity: ${ASYNC_QUEUE_CAPACITY:10000}
